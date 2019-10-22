@@ -20,8 +20,18 @@ def groupAnagrams(strs: list) -> list:
             tmp[str_t] = [s]
     res = list(tmp.values())
     return res
+
+def groupAnagrams2(strs: list) -> list:
+    m = dict()
+    for s in strs:
+        tmp = "".join(sorted(s))
+        if tmp not in m:
+            m[tmp] = list()
+        m[tmp].append(s)
+    
+    return list(m.values())
             
 
 if __name__ == "__main__":
     strs = ["eat","tea","tan","ate","nat","bat"]
-    print(groupAnagrams(strs))
+    print(groupAnagrams2(strs))

@@ -17,5 +17,3 @@ def inorderTraversal(root: TreeNode) -> list:
 
         node = stack.pop()
         root = node.right
-         
-
