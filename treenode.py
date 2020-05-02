@@ -114,6 +114,29 @@ def morris_inorder_traversal(root):
                 pre.right = None
                 cur = cur.right
 
+def niubi(root):
+    res =list()
+
+    if root:
+        stack = [root]
+        cur = root
+        while len(stack) > 0:
+            cur = stack[-1]
+            if not cur:
+                stack.pop(-1)
+                res.append(stack[-1].val)
+                stack.pop(-1)
+                continue
+
+            stack.append(None)
+            if cur.right:
+                stack.append(cur.right)
+            if cur.left:
+                stack.append(cur.left)
+        
+        return res
+            
+        
 
 if __name__ == "__main__":
     l = [1,2,3,4,None, 6, 7,None,None,None,None,None,None, 14, 15]
@@ -122,3 +145,5 @@ if __name__ == "__main__":
     #preorder_traversal(root)
     morris_preorder_traversal(root)
     morris_inorder_traversal(root)
+
+    print(niubi(root))

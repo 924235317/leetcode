@@ -40,8 +40,53 @@ def wordBreak2(s: str, wordDict: list) -> list:
     return dp[-1]
 
 
+def wordBreak3(s: str, wordDict: list) -> list:
+    def findPath(s, wordDict, cur, idx, dp, res):
+        if idx < 0:
+            return
+        if idx == 0:
+            res.append(cur)
+
+        for word in wordDict:
+            l = len(word)
+            if idx - l >= 0 and dp[idx - l] and s[idx - l:idx] == word:
+
+                tmp = word + " " + cur if cur != "" else word
+                findPath(s, wordDict, tmp, idx - l, dp, res)
+            
+
+    if not s and not wordDict:
+        return []
+
+    if not s or not wordDict:
+        return []
+    
+    dp = [False for i in range(len(s)+1)]
+    dp[0] = True
+    for i in range(len(s)):
+        for word in wordDict:
+            l = len(word)
+            print(word, s[i-l+1:i+1], dp[i-l], i, i-l)
+            if i-l+1 >= 0 and s[i-l+1:i+1] == word and dp[i-l+1]:
+                dp[i+1] = True 
+                break
+    
+    print(dp)
+    if not dp[-1]:
+        return []
+    #cur = ""
+    #res = []
+    #findPath(s, wordDict, cur, len(dp) - 1, dp, res)
+    #return res
+
+
 if __name__ == "__main__":
-    s = "catsanddog"
-    wordDict = ["cat","cats","and","sand","dog"]
-    print(wordBreak2(s, wordDict))
+    #s = "catsanddog"
+    #wordDict = ["cat","cats","and","sand","dog"]
+    #s = "bb"
+    #wordDict = ["a", "b", "bbbbbb"]
+    s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    wordDict = ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
+
+    print(wordBreak3(s, wordDict))
 
